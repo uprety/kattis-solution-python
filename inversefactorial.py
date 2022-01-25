@@ -32,7 +32,7 @@ def largeInverseFactorial(n):
 
 value = input()
 
-if len(value) < 2:
+if len(value) < 3:
     value =  int(value)
     if value == 1:
         print(1)
