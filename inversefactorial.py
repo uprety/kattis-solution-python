@@ -1,42 +1,50 @@
-from math import log10, floor
+package main
 
-#memo = {}
-#def getFactorial(n):
-#    global memo
-#    if n == 1:
-#        return 1
-#    elif n in memo:
-#        return memo[n]
-#    else:
-#        result = n * getFactorial(n -1 )
-#        memo[n] = result
-#        return result
+import (
+    "bufio"
+    "fmt"
+    "math"
+    "os"
+    "strconv"
+    "strings"
+)
 
-def smallInverseFactorial(n):
+func smallInverseFactorial(value string) int64 {
+    var pre, ans int64
     pre = 1
     ans = 1
-    while ans != n:
+    intVal, _ := strconv.ParseInt(value, 10, 64)
+    if intVal == 1 {
+        return 1
+    }
+    for ans < intVal {
         ans *= pre
         pre += 1
-    return pre -1 
+    }
+    return pre - 1
+}
 
-def largeInverseFactorial(n):
-    len_n = len(str(n))
-    i = 1
-    ans = 1
-    while True:
-        ans += log10(i)
-        if floor(ans) == len_n:
-            return i
+func largeInverseFactorial(n string) int64 {
+    len_n := float64(len(n))
+    var i float64 = 1
+    var ans float64 = 1
+    for {
+        ans += math.Log10(i)
+        if ans >= len_n {
+            return int64(i)
+        }
         i += 1
+    }
+    return 0
+}
 
-value = input()
-
-if len(value) < 2:
-    value =  int(value)
-    if value == 1:
-        print(1)
-    else:
-        print(smallInverseFactorial(value))
-else:
-    print(largeInverseFactorial(value))
+func main() {
+    var value string
+    value, _ = bufio.NewReader(os.Stdin).ReadString('\n')
+    value = strings.Split(value, "\n")[0]
+    if len(value) < 3 {
+        fmt.Println(smallInverseFactorial(value))
+    } else {
+        fmt.Println(largeInverseFactorial(value))
+    }
+}
